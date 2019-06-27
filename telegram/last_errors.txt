@@ -1,0 +1,26 @@
+time out error...                                                                                                            
+time out error...                                                                                                            
+time out error...                                                                                                            
+time out error...                                                                                                            
+Traceback (most recent call last):                                                                                           
+  File "get_update.py", line 34, in <module>                                                                                 
+    update = bot.getUpdates(offset=-1, timeout = 4)                                                                          
+  File "/home/pi/.local/lib/python2.7/site-packages/telegram/bot.py", line 60, in decorator                                  
+    result = func(self, *args, **kwargs)                                                                                     
+  File "/home/pi/.local/lib/python2.7/site-packages/telegram/bot.py", line 1768, in get_updates                              
+    result = self._request.post(url, data, timeout=float(read_latency) + float(timeout))                                     
+  File "/home/pi/.local/lib/python2.7/site-packages/telegram/utils/request.py", line 278, in post                            
+    **urlopen_kwargs)                                                                                                        
+  File "/home/pi/.local/lib/python2.7/site-packages/telegram/utils/request.py", line 223, in _request_wrapper                
+    raise NetworkError('Bad Gateway')                                                                                        
+telegram.error.NetworkError: Bad Gateway 
+
+
+Traceback (most recent call last):
+  File "get_update.py", line 35, in <module>
+    updateid = update[0].update_id
+IndexError: list index out of range
+
+
+
+
