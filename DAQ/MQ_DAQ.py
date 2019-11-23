@@ -91,7 +91,7 @@ while True:
          "--data-binary", post], stdout=FNULL, stderr=FNULL)
         
         #sys.stdout.flush()
-        time.sleep(1)
+        time.sleep(5)
 
 #except:
 #    print("\nAbort by user")
