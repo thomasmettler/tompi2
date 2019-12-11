@@ -1,13 +1,10 @@
-screen -X -S mq2 kill
-echo "DAQ MQ2 stop"
-screen -X -S mq3 kill
-echo "DAQ MQ3 stop"
-screen -X -S mq7 kill
-echo "DAQ MQ7 stop"
-screen -X -S mq8 kill
-echo "DAQ MQ8 stop"
-screen -X -S mq135 kill
-echo "DAQ MQ135 stop"
-screen -X -S para kill
+screen -X -S telegram kill
+echo "telegram stop"
+screen -X -S DAQ kill
+echo "MQ DAQ stop"
+screen -X -S rasp2 kill
+echo "Rasp Stat stop"
+screen -X -S temp kill
+echo "Temp DAQ stop"
 echo "DAQ parameter stop"
 

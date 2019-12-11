@@ -1,5 +1,7 @@
 REQUIRES
 
+run: sudo pigpiod
+
 One or more DHT11/DHT21/DHT22/DHT33/DHT44.
 
 TO BUILD

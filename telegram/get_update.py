@@ -183,8 +183,8 @@ def dropbox_upload( rest ):
 def temp():
     with open(TEMP_PATH) as f:
 		Tmp = f.readline().split()
-		te = float(Tmp[0])
-		hu = float(Tmp[1])
+		te = float(Tmp[0])*0.8617+2.36
+		hu = float(Tmp[1])*0.6643+26.974
 		output = "Temperature: " + "%.2f" % te + " Deg Celsius, Humidity: " + "%.2f" % hu + "%"
 		bot.sendMessage(chat_id=CHAT_ID, text=output)
     return
@@ -321,6 +321,8 @@ def getTempInflux():
 	#print humi_point['last']
     #output = "end of cmd norm output"
     #bot.sendMessage(chat_id=CHAT_ID, text=output)
+    this_temp = this_temp*0.8617+2.36
+    this_humid = this_humid*0.6643+26.974
     output = "Temperature: " + "%.2f" % this_temp + " Deg Celsius, Humidity: " + "%.2f" % this_humid + "%"
     bot.sendMessage(chat_id=CHAT_ID, text=output)
     return
@@ -360,6 +362,9 @@ while( True ):
         except AttributeError:
             text="No text input command"
             bot.sendMessage(chat_id=CHAT_ID,text="No text input command")
+	except Conflict:
+            text="Two instances are requesting updates"
+            bot.sendMessage(chat_id=CHAT_ID,text="Two instances are requesting updates")
 
         print "Anzahl updates: ", update_nr
         print "ID numbber: ", updateid

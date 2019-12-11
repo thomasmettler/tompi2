@@ -1,19 +1,13 @@
-screen -d -m -S mq2 bash -c 'python /home/pi/Tom_Stuff/MQ2_DAQ.py'
-echo "DAQ MQ2 started"
+screen -d -m -S telegram bash -c 'python /home/pi/TomStuff/tompi2/telegram/get_update.py'
+echo "telegram bot started"
 sleep 1
-screen -d -m -S mq3 bash -c 'python /home/pi/Tom_Stuff/MQ3_DAQ.py'
-echo "DAQ MQ3 started"
+screen -d -m -S DAQ bash -c 'python /home/pi/TomStuff/tompi2/DAQ/MQ_DAQ.py'
+echo "DAQ MQ started"
 sleep 1
-screen -d -m -S mq7 bash -c 'python /home/pi/Tom_Stuff/MQ7_DAQ.py'
-echo "DAQ MQ7 started"
+screen -d -m -S rasp2 bash -c 'python /home/pi/TomStuff/tompi2/DAQ/rasp2.py'
+echo "Rasp Stat started"
 sleep 1
-screen -d -m -S mq8 bash -c 'python /home/pi/Tom_Stuff/MQ8_DAQ.py'
-echo "DAQ MQ8 started"
-sleep 1
-screen -d -m -S mq135 bash -c 'python /home/pi/Tom_Stuff/test.py'
-echo "DAQ MQ135 started"
-sleep 1
-screen -d -m -S para bash -c 'python /home/pi/Tom_Stuff/rasp2.py'
-echo "DAQ parameters started"
+screen -d -m -S temp bash -c 'sudo pigpiod && /bin/bash /home/pi/TomStuff/tompi2/DAQ/temp_daq/DHTXXD -g17 -i5'
+echo "Temp DAQ started"
 sleep 1
 echo "DAQ started in screen sessions"
