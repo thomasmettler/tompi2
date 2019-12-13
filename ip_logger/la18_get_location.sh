@@ -18,7 +18,6 @@ curl -s https://ipvigilante.com/${PUBLIC_IP} | \
                 #CITY2="test"
                 #[ $CITY=="null" ] && CITY2=unknown || CITY2=$CITY
                 #curl -i -XPOST "localhost:8086/write?db=mydb" --data-binary "IP_location,host=1 latitude=${LATITUDE},longitude=${LONGITUDE},country=${COUNTRY}" | tr --delete \" | tr --delete \\ # --silent --output /dev/null
-                curl -i -XPOST "localhost:8086/write?db=mydb" --data-binary "IP_location,city=${CITY},latitude=$LATITUDE,longitude=$LONGITUDE country=${COUNTRY}" | tr --delete \" | tr --delete \\ # --silent --output /dev/null
-                echo "IP_location,city=${CITY} latitude=${LATITUDE},longitude=${LONGITUDE},country=${COUNTRY}" | tr --delete \" | tr --delete \\
+                curl -i -XPOST "localhost:8086/write?db=test_db" --data-binary "IP_location,city=${CITY} latitude=${LATITUDE},longitude=${LONGITUDE},country=${COUNTRY}" | tr --delete \" | tr --delete \\ # --silent --output /dev/null
                 echo "Date: ${current_date_time}\nCoordinates: ${LATITUDE},${LONGITUDE}\nCity: ${CITY}\nCountry: ${COUNTRY}\n" | tr --delete \"
         done
