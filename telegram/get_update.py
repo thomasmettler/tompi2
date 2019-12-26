@@ -7,6 +7,7 @@ import datetime
 import subprocess
 from send_photo import *
 from influxdb import InfluxDBClient
+import urllib2
 
 
 bot = telegram.Bot(token='694091311:AAF7PmMqhyB88LG1wMmYdIKmis7OqTGlYWk')
@@ -15,8 +16,8 @@ old_updateid = 0
 updateid = 0
 FNULL = open(os.devnull, 'w')
 
-TEMP_PATH = '/home/pi/Tom_Stuff/DAQ/somefile.txt'
-SNAP_PATH = '/home/pi/Tom_Stuff/camera_data/daily_motion/snapshot/'
+TEMP_PATH = '../somefile.txt'
+SNAP_PATH = '../camera_data/daily_motion/snapshot/'
 
 def getChatUpdate():
     try:
@@ -326,6 +327,52 @@ def getTempInflux():
     output = "Temperature: " + "%.2f" % this_temp + " Deg Celsius, Humidity: " + "%.2f" % this_humid + "%"
     bot.sendMessage(chat_id=CHAT_ID, text=output)
     return
+    
+def light(status):
+    if status == "on":
+        content = urllib2.urlopen('http://192.168.8.127/RELAY=ON').read()
+        text = ""
+        for i, line in enumerate(content):
+            if i>=90 and i<=92:
+                #print "line: " + line + " string: " + str(i)
+                text += line
+        text="The light is now: " + text
+        bot.sendMessage(chat_id=CHAT_ID,text=text)
+    elif status == "off":
+        content = urllib2.urlopen('http://192.168.8.127/RELAY=OFF').read()
+        text = ""
+        for i, line in enumerate(content):
+            if i>=90 and i<=92:
+                #print "line: " + line + " string: " + str(i)
+                text += line
+        text="The light is now: " + text
+        bot.sendMessage(chat_id=CHAT_ID,text=text)
+    elif status == "switch":
+        content = urllib2.urlopen('http://192.168.8.127/').read()
+        text = ""
+        for i, line in enumerate(content):
+            if i>=90 and i<=92:
+                #print "line: " + line + " string: " + str(i)
+                text += line
+        if text == "OFF":
+            content = urllib2.urlopen('http://192.168.8.127/RELAY=ON').read()
+            text = ""
+            for i, line in enumerate(content):
+                if i>=90 and i<=92:
+                    #print "line: " + line + " string: " + str(i)
+                    text += line
+            text="The light is now: " + text
+            bot.sendMessage(chat_id=CHAT_ID,text=text)
+        if text == "ON<":
+            content = urllib2.urlopen('http://192.168.8.127/RELAY=OFF').read()
+            text = ""
+            for i, line in enumerate(content):
+                if i>=90 and i<=92:
+                    #print "line: " + line + " string: " + str(i)
+                    text += line
+            text="The light is now: " + text
+            bot.sendMessage(chat_id=CHAT_ID,text=text)
+        
 
 while( True ): 
     
@@ -401,13 +448,19 @@ while( True ):
             elif(rest == 'joke all'):
                 bot.sendMessage(chat_id=CHAT_ID,
                 text=pyjokes.get_joke(language='en',category='all'))
+            elif(rest == 'light on'):
+                light('on')
+            elif(rest == 'light off'):
+                light('off')
+            elif(rest == 'light'):
+                light('switch')
             elif(rest == 'Fortune'):
                 fortune()
             elif(rest.startswith("upload")):
                 dropbox_upload(rest)   
             elif(rest == 'temp'):
                 #temp()	
-		getTempInflux()
+		        getTempInflux()
             elif(rest.startswith("send")):
                 send_cam(rest)
             elif(rest.startswith("take")):
