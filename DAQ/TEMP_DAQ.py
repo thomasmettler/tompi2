@@ -13,6 +13,7 @@ humid_old = -100
 humidity = 60
 
 while (temp_old ==-100 or humid_old == -100):
+    print 'check temp'
     humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.AM2302, 17)
     if(temperature != None):
         temp_old=temperature
@@ -21,6 +22,7 @@ while (temp_old ==-100 or humid_old == -100):
 
 
 while(1):
+    print 'entered loop'
     humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.AM2302, 17)
     text = 'Temp= ' , temperature ,  ' Humidity: ' , humidity
     #text = 'Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity)

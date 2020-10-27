@@ -23,4 +23,4 @@ while(1):
     post = "raspi_temp,host=1 value=" + str(temp)
     subprocess.call(["curl", "-i", "-XPOST", "localhost:8086/write?db=mydb",
      "--data-binary", post], stdout=FNULL, stderr=FNULL)
-    time.sleep(5)
+    time.sleep(30)
